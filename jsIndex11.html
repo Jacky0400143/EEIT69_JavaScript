@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+function add(a, b, statement, value) {
+    let ans = a + b
+    statement(`${a} + ${b} = ${ans}`)
+    value(ans)
+}
+
+function newadd(a, b, complete) {
+    let ans = a + b
+    complete(`${a} + ${b} = ${ans}`, ans)
+}
+
+add(5, 10, function(str) {
+    console.log(str)
+}, function(ans) {
+    console.log(ans)
+})
+
+newadd(10,20,function(statement, value) {
+    console.log(statement)
+    console.log(value)
+})
+
+// function complete(answer) {
+//     console.log(answer)
+// }
+
+// function add(a, b, complete) {
+//     complete(a + b)
+// }
+
+// add(5, 5, function(answer) {
+//     console.log(answer)
+// })
+
+// function f1() {
+//     for(i=0; i<3; i++) {
+//         console.log(`${i}: Hello`)
+//     }
+// }
+
+// function test(a) {
+//     a()    
+// }
+
+// test(f1)
+
+// function f1() {
+//     for(i=0; i<3; i++) {
+//         console.log('Hello')
+//     }
+// }
+
+// let a = f1
+// a()
+
+</script>
+</body>
+<button id="bn">click</button>
+</html>
