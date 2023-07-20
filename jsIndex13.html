@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // function Person(name, age) {
+    //     this.name = name
+    //     this.age = age
+    //     this.email = () => `${name}@gmail.com`
+    // }
+
+class Person {
+    constructor(name, age) {
+        this.name = name
+        this.age = age
+    }
+    email() {
+        return `${this.name}@gmail.com`
+    }
+}
+class NewPerson extends Person {
+    constructor(name, age, birthday) {
+        super(name, age)
+        this.birthday = birthday
+    }
+}
+let p1 = new Person('Daved', 30)
+console.log(p1.name)
+console.log(p1.age)
+console.log(p1.email())
+let p2 = new NewPerson('Betty', 27, '2007/5/1')
+console.log(p2.name)
+console.log(p2.age)
+console.log(p2.birthday)
+
+</script>
+</body>
+</html>
