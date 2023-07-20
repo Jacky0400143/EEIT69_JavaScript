@@ -5,7 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<script>
+let animals = ['獅子', '老虎', '大象', '斑馬', '老虎', '長頸鹿']
+window.onload = function() {
+    let html = ''
+    animals.forEach(function(animal) {
+        html += `<div class='zoo'>${animal}</div>`
+    })
+    zoo.innerHTML = html
+
+    search.onclick = function() {
+        let boxes = document.getElementsByClassName('zoo')
+        for(index in animals) {
+            boxes[index].classList.remove('border')
+            if (animals[index] == searchText.value) {
+                boxes[index].classList.add('border')
+            }
+        }
+    }
+}
+// let arr = ['獅子', '老虎', '大象', '斑馬', '老虎', '長頸鹿']
+// document.write(arr.indexOf('老虎', 1+1))
+//     // let arr = ['獅子', '老虎', '大象']
+//     // arr.forEach(function(animal) {
+//     //     console.log(animal)
+//     // })
+
+</script>
 <body>
-    
 </body>
 </html>
