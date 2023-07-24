@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+window.onload = function() {
+    save.onclick = function() {
+        // let text = text.value
+        // localStorage.setItem('mykey', text)
+        localStorage.setItem('mykey', text.value)
+    }
+
+    load.onclick = function() {
+        // let text = localStorage.getItem('mykey')
+        // data.innerText = text
+        alert(localStorage.getItem('mykey'));
+        data.innerText = localStorage.getItem('mykey')
+    }
+}
+</script>
+<body>
+    <input id="text"><p></p>
+    <button id="save">Save</button>
+    <button id="load">Load</button>
+    <p></p>
+    <div id="data"></div>
+</body>
+</html>
