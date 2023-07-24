@@ -6,12 +6,78 @@
     <title>Document</title>
 </head>
 <script>
+// window.onload = function() {
+    // let d = new Date()
+
+    // let str = Date()
+    // Container.innerHTML = str
+
+    // Container.innerHTML = d.toString()
+    // container.innerHTML = d.toLocaleString() //本地時間
+    // container.innerHTML = d.toUTCString()    //世界協調時間
+    // Container.innerHTML = Date.now() //毫秒
+
+    // https://www.epochconverter.com/
+    // let start_time = Date.now()
+    // bn.onclick = function() {
+    //     // container.innerHTML = (Date.now() - start_time) / 1000
+    //     var myDate = new Date( 1690163065 *1000);
+    //     container.innerHTML = myDate.toLocaleString()   //轉換成人類時間
+    //     container.innerHTML = myDate.toLocaleString('zh-TW',{timeZone:'Asia/Tokyo'})    //轉換時區
+
+    // bn.onclick = function() {
+    //     let ts = Date.now() + 2 * 60 * 60 * 1000
+    //     container.innerHTML = (new Date(ts)).toLocaleString()
+
+    // bn.onclick = function() {
+    //     let d = new Date()
+    //     container.innerHTML = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+
+    // setInterval(function() {
+    //     let d = new Date()
+    //     container.innerHTML = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+    // }, 1000)
+
+function div(a, b) {
+    return new Promise(function(resolve, reject) {
+        if (b == 0) {
+            reject('分母不可為零')
+        } else {
+            resolve(a / b)
+        }
+    })
+}    
+
 window.onload = function() {
-    let str = Date()
-    Container.innerHTML = str
+   bndiv.onclick = function() {
+       let n1 = parseInt(num1.value)
+       let n2 = parseInt(num2.value)
+
+
+       div(n1, n2)
+       .then(function(ans) {
+            return Math.round(ans * 100) / 100
+        //    result.innerHTML = ans
+       })
+       .then(function(ans) {
+            result.innerHTML = ans
+       })
+       .catch(function(reason) {
+           result.innerHTML = reason
+       })
+   }
 }
+
 </script>
 <body>
-    <div id="container"></div>
+    <!-- <button id="bn">click</button> -->
+    <!-- <div id="container"></div> -->
+
+    Number 1: <input id="num1"><p></p>
+    Number 2: <input id="num2"><p></p>
+    <!-- <button id="bnadd">add</button> -->
+    <button id="bndiv">div</button>
+    <p></p>
+    <label id="result">0</label>
 </body>
 </html>
