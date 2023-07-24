@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+window.onload = function() {
+
+    siteNamelist
+    bn.onclick = function() {
+        //  AJAX
+        fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
+        .then(function(response) {
+            // return response.text()
+            return response.json()
+        })
+        .then(function(data) {
+            // content.innerText = data
+            let s = '<ul>'
+            a = data["records"]
+            a.forEach(function(item) {
+                s += `<li>監測站：${item.sitename}</li>`
+                s += `<li>城市：${item.county}</li>`
+                s += `<li>空氣品質指標：${item.aqi}</li>`
+                s += `<li>空氣品質：${item.status}</li>`
+                s += `<li>PM2.5：${item["pm2.5"]}</li>`
+                s += `<br>`
+            }) 
+            s += '</ul>'
+            content.innerHTML = s
+        })
+    }
+}
+</script>
+<body>
+    <div id="date"></div>
+    <select id="siteNamelist">123</select>
+    <button id="bn">click</button>
+    <!-- <pre id="content"></pre> -->
+    <div id="content"></div>
+</body>
+</html>

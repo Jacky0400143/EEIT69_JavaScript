@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+window.onload = function() {
+
+    let siteNamelist = document.getElementById('siteNamelist');
+    let content = document.getElementById('content');
+
+    fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        data["records"].forEach(function(item) {
+            let option = document.createElement('option');
+            option.value = item.sitename;
+            option.text = item.sitename;
+            siteNamelist.appendChild(option);
+        });
+
+        siteNamelist.onchange = function() {
+            let selectedSite = this.value;
+            let selectedData = data["records"].find(item => item.sitename === selectedSite);
+            if (selectedData) {
+                let s = '<ul>'
+                s += `<li>監測站：${selectedData.sitename}</li>`
+                s += `<li>城市：${selectedData.county}</li>`
+                s += `<li>空氣品質指標：${selectedData.aqi}</li>`
+                s += `<li>空氣品質：${selectedData.status}</li>`
+                s += `<li>PM2.5：${selectedData["pm2.5"]}</li>`
+                s += '</ul>'
+                content.innerHTML = s
+            }
+        }
+    })
+}
+</script>
+<body>
+    <div id="date"></div>
+    <select id="siteNamelist"></select>
+    <div id="content"></div> 
+</body>
+</html>
