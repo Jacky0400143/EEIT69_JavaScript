@@ -32,12 +32,7 @@ window.onload = function() {
 
 //    bn.onclick = function() {
     const getAQI = function() {   
-       // AJAX
-       fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
-       .then(function(response) {
-           return response.json()
-       })
-       .then(function(data) {
+        function show(str) {
             date_update.innerText = data.records[0].publishtime
             let s = ''
             data.records.forEach(function(item) {
@@ -53,6 +48,13 @@ window.onload = function() {
                </div>
                `
            })
+        }
+       // AJAX
+       fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
+       .then(function(response) {
+           return response.json()
+       })
+       .then(function(str) {
            aqi.innerHTML = s
        })
    }
