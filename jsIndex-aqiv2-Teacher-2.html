@@ -24,18 +24,29 @@ window.onload = function() {
    }
 
 
-   date.innerText = now()
+   date_now.innerText = now()
    setInterval(function() {
-       date.innerText = now()
+       date_now.innerText = now()
    }, 1000)
 
 
-//    bn.onclick = function() {
-    const getAQI = function() {   
-        function show(str) {
-            date_update.innerText = data.records[0].publishtime
-            let s = ''
-            data.records.forEach(function(item) {
+   const getAQI = function() {
+       function show(str) {
+           let data = JSON.parse(str)
+          
+           date_update.innerText = data.records[0].publishtime
+
+
+           let d1 = new Date()
+           let d2 = new Date(data.records[0].publishtime)
+
+
+           console.log(d1)
+           console.log((d1 - d2) / 1000)
+
+
+           let s = ''
+           data.records.forEach(function(item) {
                s += `
                <div id="site" class="site">
                    <div id="head" style="text-align: center">
@@ -48,16 +59,30 @@ window.onload = function() {
                </div>
                `
            })
-        }
-       // AJAX
-       fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
-       .then(function(response) {
-           return response.json()
-       })
-       .then(function(str) {
            aqi.innerHTML = s
-       })
+       }
+
+
+       // AJAX
+       if (localStorage.getItem('mykey') == null) {
+           console.log('data from URL')
+           fetch('https://raw.githubusercontent.com/kirkchu/mongodb/main/aqiv2.json')
+           .then(function(response) {
+               return response.text()
+           })
+           .then(function(str) {
+               localStorage.setItem('mykey', str)
+               show(str)
+           })
+       } else {
+           console.log('data from localstorage')
+           let str = localStorage.getItem('mykey')
+           show(str)
+       }
    }
+
+
+   getAQI()
 }
 </script>
 <style>
@@ -79,8 +104,9 @@ window.onload = function() {
 }
 </style>
 <body>
-   <div id="date"></div>
-   <button id="bn">click</button><p></p>
+   <div id="date_now"></div>
+   <div id="date_update"></div>
+   <p></p>
    <div id="aqi" class="container">
    </div>
 </body>
