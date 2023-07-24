@@ -38,35 +38,88 @@
     //     container.innerHTML = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
     // }, 1000)
 
+// function div(a, b) {
+//     return new Promise(function(resolve, reject) {
+//         if (b == 0) {
+//             reject('分母不可為零')
+//         } else {
+//             resolve(a / b)
+//         }
+//     })
+// }    
+
+// function div(a, b) { //此方法有BUG，全部非數字可判別，但是如果是數字後加英文則仍可運算
+//     return new Promise(function(resolve, reject) {
+//         a = parseInt(a)
+//         b = parseInt(b)
+
+//         if (isNaN(a) || isNaN(b)) {
+//             reject('請輸入數字')
+//         } else if (b == 0) {
+//             reject('分母不可為零')
+//         } else {
+//             resolve(a / b)
+//         }
+//     })
+// }
+
 function div(a, b) {
-    return new Promise(function(resolve, reject) {
-        if (b == 0) {
-            reject('分母不可為零')
-        } else {
-            resolve(a / b)
-        }
-    })
-}    
+   return new Promise(function(resolve, reject) {
+       let num1 = parseInt(a)
+       let num2 = parseInt(b)
+
+
+       if (String(num1) != a || String(num2) != b) {
+           reject('請輸入數字')
+       }
+       else if (num2 == 0) {
+           reject('分母不可為零')
+       } else {
+           resolve(num1 / num2)
+       }
+   })
+}
+
+
+// window.onload = function() {
+//    bndiv.onclick = function() {
+//        let n1 = parseInt(num1.value)
+//        let n2 = parseInt(num2.value)
+
+
+//        div(n1, n2)
+//        .then(function(ans) {
+//             return Math.round(ans * 100) / 100
+//         //    result.innerHTML = ans
+//        })
+//        .then(function(ans) {
+//             result.innerHTML = ans
+//        })
+//        .catch(function(reason) {
+//            result.innerHTML = reason
+//        })
+//    }
+// }
 
 window.onload = function() {
    bndiv.onclick = function() {
-       let n1 = parseInt(num1.value)
-       let n2 = parseInt(num2.value)
-
-
-       div(n1, n2)
+       div(num1.value, num2.value)
        .then(function(ans) {
-            return Math.round(ans * 100) / 100
-        //    result.innerHTML = ans
+           row_data.innerHTML = ans
+           return Math.round(ans * 100) / 100
        })
        .then(function(ans) {
-            result.innerHTML = ans
+           result.innerHTML = ans
        })
        .catch(function(reason) {
            result.innerHTML = reason
        })
+       .finally(function() {
+        
+       })
    }
 }
+
 
 </script>
 <body>
@@ -78,6 +131,7 @@ window.onload = function() {
     <!-- <button id="bnadd">add</button> -->
     <button id="bndiv">div</button>
     <p></p>
+    <label id="row_data">0</label><p></p>
     <label id="result">0</label>
 </body>
 </html>
