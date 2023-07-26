@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<script>
+$(() => {
+    // $('#one, .three').html('hello')
+
+    // $('div[x="2"]').html('hello')
+
+    // $('div[x="2"]')
+    //     .html('hello')
+    //     // .css('background-color', 'lightgreen')
+    //     // .css('color', 'red')
+    //     .css({
+    //         'background-color': 'lightgreen',
+    //         'color': 'orange'
+    //     })
+
+    $(document.getElementById('two'))
+        .html('hello')
+        .css({
+            'background-color': 'lightgreen',
+            'color': 'orange'
+        })
+
+    // let element = document.getElementById('one')
+
+    let element = $('#one').get(0) // get(2)
+    element.innerHTML = 'hi'
+    element.style = 'background-color: lightgreen; color: red'
+})
+</script>
+
+<body>
+    <div id="one" x="1">1</div>
+    <div id="two" x="2">2</div>
+    <div class="three" x="3">3</div>
+</body>
+
+</html>

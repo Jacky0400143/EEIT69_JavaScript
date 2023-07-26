@@ -9,16 +9,40 @@
 </head>
 <script>
     $(() => {
-        $('button').click(() => {
-            $('label').html('Hello, World!!!')
+        // $('button').click(() => {
+        //     $('label').html('Hello, World!!!')
+        // })
+
+        // $('button').on('click', function() {
+        //     $('label').html('Hi, World!!')
+        // })
+
+        // $('button').on('click', function() {
+        //     $('#one').html('Hi, World!!<br>')
+        //     $('#two').html('Good Morning')
+
+        $('button').on('mousedown', function(event) { //event 滑鼠點擊後的事件
+        $('.aaa').on('mousedown', function(event) { //event 滑鼠點擊後的事件
+            event.preventDefault() //
+            $('#one').html('Hi, World!!<br>')
+            $('#two').html(event.buttons)
+
         })
     })
 </script>
 
 <body>
     <button>Click</button>
+    <button class="aaa">Click</button>
     <p></p>
-    <label></label>
+
+    <!-- <label></label>
+    <p></p>
+    <label></label> -->
+
+    <label id="one"></label>
+    <p></p>
+    <label id="two"></label>
 </body>
 
 </html>

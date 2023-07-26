@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<script>
+$(() => {
+    $('li')
+        // .first(1)    //選取第一個
+        // .last(4) //選取最後一個
+        // .slice(1, 3)    //選取第二第三
+        // .odd()  //索引值挑奇數
+        // .even() //索引值挑偶數
+        // .eq(2)  //索引值特定，單獨放索引值
+        .not($('li').eq(2)) //除了索引值以外都不要
+        .css('background-color', 'lightgreen')
+})
+</script>
+<body>
+    <ul>
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+        <li>ddd</li>
+    </ul>
+    
+</body>
+</html>
