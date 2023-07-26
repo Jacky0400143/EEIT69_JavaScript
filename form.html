@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<script>
+window.onload = function() {
+   mysubmit.onclick = function(event) {
+       event.preventDefault()
+       if (pwd.value !== pwd_confirm.value) {
+           alert('密碼不一致')
+       } else {
+           myform.submit()
+       }
+   }
+
+
+   uid.onblur = function() {
+       let value = uid.value
+       fetch('http://10.0.101.248/duplicatecheck.php?uid=' + value)
+       .then(function(response) {
+           return response.text()
+       })
+       .then(function(text) {
+           console.log(text)
+           if (text == 0) {
+               marker.innerText = '❌'
+           } else {
+               marker.innerText = '✅'
+           }
+       })
+   }
+}
+</script>
+<body>
+<form id="myform" action="http://10.0.101.248/register.php" method="post">
+   帳號：<input id="uid" name="uid" value="">&nbsp;<label id="marker"></label><p></p>
+   密碼：<input type="password" id="pwd" name="pwd" value=""><p></p>
+   密碼確認：<input type="password" id="pwd_confirm" name="pwd_confirm" value=""><p></p>
+   <input type="submit" id="mysubmit" value="註冊">
+</form>
+</body>
+</html>
