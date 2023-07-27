@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<script>
+    $(() => {
+        $('div ul li:nth-child(1)')
+            .css('background-color', 'yellow')
+            .siblings()
+            .addClass('yellow')
+            .parent()
+            .click(function () {
+                $(this) // <= <ul>
+                    // .not($('div ul li:nth-child(2)'))
+                    .children()
+                    .toggleClass('yellow')
+            })
+    })
+</script>
+<style>
+
+</style>
+<body>
+    <div>
+        <ul>
+            <li>
+                <h3>A</h3>
+            </li>        
+
+            <h2>A</h2>
+            <h1>A</h1> 
+        </ul>  
+    </div>
+    <div>
+        
+            Synology Photos <br>提供智慧且彈性的相片管理方式，讓攝影愛好者及家庭用戶皆可輕鬆上手。</li>
+    </div>
+</body>
+
+</html>
