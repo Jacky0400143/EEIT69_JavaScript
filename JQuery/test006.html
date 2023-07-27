@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f5f5;
+        }
+        table {
+            margin: auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            max-width: 100px;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #FF4500;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1E90FF;
+        }
+        #empty-cart-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<script>
+    $(() => {
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/kirkchu/mongodb/main/product.json',
+            success: function (result) {
+                let jsonObj = JSON.parse(result)
+                let s = `
+                    <table>
+                        <tr>
+                            <th>圖片</th>
+                            <th>項目</th>
+                            <th>單價</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                            <th>操作</th>
+                        </tr>
+            `
+                $.each(jsonObj, function (index, product) {
+                    s += `
+                    <tr>
+                        <td><img src="${product.image}" width="100"></td>
+                        <td>${product.name}</td>
+                        <td class="price">${product.price}</td>
+                        <td class="quantity">${product.quantity}</td>
+                        <td class="subtotal">${product.price * product.quantity}</td>
+                        <td>
+                            <button class="add"><i class="fas fa-plus"></i></button>
+                            <button class="subtract"><i class="fas fa-minus"></i></button>
+                            <button class="delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `
+                })
+                s += '</table>'
+                $('#product').html(s)
+
+                // Add click event handlers after the table is created
+                $("button.add").click(function() {
+                    let quantityField = $(this).closest('tr').find('.quantity');
+                    let quantity = parseInt(quantityField.text());
+                    quantityField.text(quantity + 1);
+                    updateSubtotal($(this).closest('tr'));
+                });
+
+                $("button.subtract").click(function() {
+                    let quantityField = $(this).closest('tr').find('.quantity');
+                    let quantity = parseInt(quantityField.text());
+                    if (quantity > 0) {
+                        quantityField.text(quantity - 1);
+                        updateSubtotal($(this).closest('tr'));
+                    }
+                    if (quantity - 1 === 0) {
+                        $(this).closest('tr').fadeOut(500, function() {
+                            $(this).remove();
+                            checkEmptyCart();
+                        });
+                    }
+                });
+
+                $("button.delete").click(function() {
+                    $(this).closest('tr').fadeOut(500, function() {
+                        $(this).remove();
+                        checkEmptyCart();
+                    });
+                });
+
+                function updateSubtotal(row) {
+                    let price = parseFloat(row.find('.price').text());
+                    let quantity = parseInt(row.find('.quantity').text());
+                    row.find('.subtotal').text(price * quantity);
+                }
+
+                function checkEmptyCart() {
+                    if ($('tr').length <= 1) {
+                        $('#empty-cart-message').show();
+                    }
+                }
+            }
+        })
+    })
+</script>
+
+<body>
+    <div id="product"></div>
+    <div id="empty-cart-message">
+        <p>購物車已清空。</p>
+        <button onclick="location.reload()">重新購買</button>
+    </div>
+</body>
+
+</html>
